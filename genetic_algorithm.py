@@ -27,23 +27,29 @@ class GeneticAlgorithm:
         algorithm = cls()
         algorithm.execute()
 
+    def prob(self):
+        return np.random.random_sample()
+
     def execute(self):
         # initialize
+        print("Initializing pop")
         population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
 
         # evaluate
+        print("Evaluating pop")
         fitness = map(self.evaluate, population)
 
         # select
+        print("Selecting parents")
         selected = self.select(zip(fitness, population))
 
         # cross
-        prob = np.random.random_sample()
-        offspring = [self.cross(ind1, ind2) if prob < self.CX_PB else ind1 for ind1, ind2 in selected]
+        print("Mating parents")
+        offspring = [self.cross(ind1, ind2) if self.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
 
         # mutate
-        prob = np.random.random_sample()
-        any(self.mutate(child) for child in offspring if prob < self.MUT_PB)
+        print("Mutating children")
+        any(self.mutate(child) for child in offspring if self.prob() < self.MUT_PB)
 
         population[:] = offspring
 
