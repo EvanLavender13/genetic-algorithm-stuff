@@ -10,10 +10,10 @@ class GeneticAlgorithm:
     def init_individual(self):
         raise NotImplementedError
 
-    def evaluate(self, individual):
+    def evaluate(self, ind):
         raise NotImplementedError
 
-    def select(self, population):
+    def select(self, pop):
         raise NotImplementedError
 
     def cross(self, ind1, ind2):

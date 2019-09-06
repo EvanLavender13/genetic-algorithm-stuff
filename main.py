@@ -1,9 +1,5 @@
-from operator import itemgetter
-
-import numpy as np
-
 from genetic_algorithm import GeneticAlgorithm
-from operators import individual
+from operators import individual, selection, crossover
 
 
 class Test(GeneticAlgorithm):
@@ -14,30 +10,14 @@ class Test(GeneticAlgorithm):
     def init_individual(self):
         return individual.binary_list(10)
 
-    def evaluate(self, individual):
-        return sum(individual)
+    def evaluate(self, ind):
+        return sum(ind)
 
-    def select(self, population):
-        sorted_pop = sorted(population, key=itemgetter(0))
-        total = sum(fit for fit, _ in sorted_pop)
-        probs = [fit / total for fit, _ in sorted_pop]
-
-        def select_generator():
-            count = 0
-            while count < self.POPULATION_SIZE:
-                count += 1
-                yield (sorted_pop[np.random.choice(self.POPULATION_SIZE, p=probs)],
-                       sorted_pop[np.random.choice(self.POPULATION_SIZE, p=probs)])
-
-        return select_generator()
+    def select(self, pop):
+        return selection.roulette(pop)
 
     def cross(self, ind1, ind2):
-        size = len(ind1[1])
-        point = np.random.randint(1, size - 1)
-
-        print("CROSS!")
-
-        return 0, np.concatenate([ind1[1][:point], ind2[1][point:]])
+        return crossover.single_point(ind1, ind2)
 
     def mutate(self, child):
         print("MUTATE")
