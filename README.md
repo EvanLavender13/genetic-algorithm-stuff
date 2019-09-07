@@ -3,7 +3,7 @@ Playing around with genetic algorithms. Partly inspired by the mrjob library.
 Also trying to play around with functional concepts, I think.
 
 ## A Simple One Max Example
-```
+```python
 class Test(GeneticAlgorithm):
     POPULATION_SIZE = 300
     CX_PB = 0.15
