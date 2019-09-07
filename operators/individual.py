@@ -2,8 +2,8 @@ import numpy as np
 
 
 def binary_list(size):
-    return integer_list(0, 2, size)
+    return integer_list(0, 1, size)
 
 
 def integer_list(low, high, size):
-    return np.random.randint(low, high, size)
+    return np.random.random_integers(low, high, size)

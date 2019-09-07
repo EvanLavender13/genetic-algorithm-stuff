@@ -23,36 +23,41 @@ class GeneticAlgorithm:
         raise NotImplementedError
 
     @classmethod
-    def run(cls):
+    def run(cls, num_gens):
         algorithm = cls()
-        algorithm.execute()
+        result = algorithm.execute(num_gens)
+
+        print("Final population ...")
+        print(sum(sum(result)))
 
     def prob(self):
         return np.random.random_sample()
 
-    def execute(self):
+    def execute(self, num_gens):
         # initialize
         print("Initializing pop")
         population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
 
-        # evaluate
-        print("Evaluating pop")
-        fitness = map(self.evaluate, population)
+        print(sum(sum(population)))
 
-        # select
-        print("Selecting parents")
-        selected = self.select(zip(fitness, population))
+        for gen in range(num_gens):
 
-        # cross
-        print("Mating parents")
-        offspring = [self.cross(ind1, ind2) if self.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
+            # evaluate
+            # print("Evaluating pop")
+            fitness = map(self.evaluate, population)
 
-        # mutate
-        print("Mutating children")
-        any(self.mutate(child) for child in offspring if self.prob() < self.MUT_PB)
+            # select
+            # print("Selecting parents")
+            selected = self.select(zip(fitness, population))
 
-        population[:] = offspring
+            # cross
+            # print("Mating parents")
+            offspring = [self.cross(ind1, ind2) if self.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
 
-        print(population)
+            # mutate
+            # print("Mutating children")
+            any(self.mutate(child) for child in offspring if self.prob() < self.MUT_PB)
+
+            population[:] = offspring
 
         return population

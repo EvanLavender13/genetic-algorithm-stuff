@@ -13,7 +13,7 @@ def roulette(population):
         count = 0
         while count < population_size:
             count += 1
-            yield (sorted_pop[np.random.choice(population_size, p=probs)],
-                   sorted_pop[np.random.choice(population_size, p=probs)])
+            yield (sorted_pop[np.random.choice(population_size, p=probs)][1],
+                   sorted_pop[np.random.choice(population_size, p=probs)][1])
 
     return select_generator()
