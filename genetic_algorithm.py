@@ -3,7 +3,6 @@ import numpy as np
 
 class GeneticAlgorithm:
     POPULATION_SIZE = None
-
     CX_PB = 1.0
     MUT_PB = 1.0
 
@@ -30,9 +29,6 @@ class GeneticAlgorithm:
         print("Final population ...")
         print(sum(sum(result)))
 
-    def prob(self):
-        return np.random.random_sample()
-
     def execute(self, num_gens):
         # initialize
         print("Initializing pop")
@@ -41,7 +37,6 @@ class GeneticAlgorithm:
         print(sum(sum(population)))
 
         for gen in range(num_gens):
-
             # evaluate
             # print("Evaluating pop")
             fitness = map(self.evaluate, population)
@@ -61,3 +56,6 @@ class GeneticAlgorithm:
             population[:] = offspring
 
         return population
+
+    def prob(self):
+        return np.random.random_sample()

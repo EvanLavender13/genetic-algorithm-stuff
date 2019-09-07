@@ -20,7 +20,7 @@ class Test(GeneticAlgorithm):
         return crossover.single_point(ind1, ind2)
 
     def mutate(self, child):
-        mutation.uniform_binary(child, prob=0.01)
+        mutation.uniform_integer(child, prob=0.01, low=0, high=9)
 
 
 if __name__ == "__main__":
