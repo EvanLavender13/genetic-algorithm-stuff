@@ -1,6 +1,6 @@
 import numpy as np
 
-
+# look into using map/any for this
 def uniform(child, prob, func, *args):
     size = len(child)
 

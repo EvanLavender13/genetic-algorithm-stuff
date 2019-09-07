@@ -1,6 +1,10 @@
 import numpy as np
 
 
+def prob():
+    return np.random.random_sample()
+
+
 class GeneticAlgorithm:
     POPULATION_SIZE = None
     CX_PB = 1.0
@@ -47,15 +51,12 @@ class GeneticAlgorithm:
 
             # cross
             # print("Mating parents")
-            offspring = [self.cross(ind1, ind2) if self.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
+            offspring = [self.cross(ind1, ind2) if prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
 
             # mutate
             # print("Mutating children")
-            any(self.mutate(child) for child in offspring if self.prob() < self.MUT_PB)
+            any(self.mutate(child) for child in offspring if prob() < self.MUT_PB)
 
             population[:] = offspring
 
         return population
-
-    def prob(self):
-        return np.random.random_sample()
