@@ -13,8 +13,8 @@ def select_generator(pop, func, *args):
         yield pop[func(*args)][1], pop[func(*args)][1]
 
 
-def roulette(pop):
-    sorted_pop = sorted(pop, key=itemgetter(0))
+def roulette(population):
+    sorted_pop = sorted(population, key=itemgetter(0))
     size = len(sorted_pop)
     total = sum(fit for fit, _ in sorted_pop)
     probs = [fit / total for fit, _ in sorted_pop]

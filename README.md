@@ -10,21 +10,21 @@ class Test(GeneticAlgorithm):
     MUT_PB = 0.05
 
     def init_individual(self):
-        return individual.binary_list(10)
+        return init_individual.binary_list(10)
 
-    def evaluate(self, ind):
-        return sum(ind)
+    def evaluate(self, individual):
+        return sum(individual)
 
-    def select(self, pop):
-        return selection.roulette(pop)
+    def select(self, population):
+        return selection.roulette(population)
 
     def cross(self, ind1, ind2):
         return crossover.single_point(ind1, ind2)
 
     def mutate(self, child):
-        mutation.uniform_binary(child, prob=0.01)
+        return mutation.uniform_binary(child, prob=0.05)
 
 
 if __name__ == "__main__":
-    Test.run(num_gens=100)
+    Test.run(num_generations=100)
 ```

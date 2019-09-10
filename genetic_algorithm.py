@@ -9,10 +9,10 @@ class GeneticAlgorithm:
     def init_individual(self):
         raise NotImplementedError
 
-    def evaluate(self, ind):
+    def evaluate(self, individual):
         raise NotImplementedError
 
-    def select(self, pop):
+    def select(self, population):
         raise NotImplementedError
 
     def cross(self, ind1, ind2):
@@ -22,23 +22,23 @@ class GeneticAlgorithm:
         raise NotImplementedError
 
     @classmethod
-    def run(cls, num_gens):
+    def run(cls, num_generations):
         algorithm = cls()
-        result = algorithm.execute(num_gens)
+        result = algorithm.execute(num_generations)
 
         print("Final population ...")
         for i in result:
             print(i, type(i))
 
-    def execute(self, num_gens):
+    def execute(self, num_generations):
         # initialize
-        print("Initializing pop")
+        print("Initializing pop ...")
         population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
 
-        for i in population:
-            print(i, type(i))
+        # for i in population:
+        #     print(i, type(i))
 
-        for gen in range(num_gens):
+        for gen in range(num_generations):
             # evaluate
             # print("Evaluating pop")
             fitness = map(self.evaluate, population)
