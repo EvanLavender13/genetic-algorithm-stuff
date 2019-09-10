@@ -1,8 +1,4 @@
-import numpy as np
-
-
-def prob():
-    return np.random.random_sample()
+import tools
 
 
 class GeneticAlgorithm:
@@ -31,14 +27,16 @@ class GeneticAlgorithm:
         result = algorithm.execute(num_gens)
 
         print("Final population ...")
-        print(sum(sum(result)))
+        for i in result:
+            print(i, type(i))
 
     def execute(self, num_gens):
         # initialize
         print("Initializing pop")
         population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
 
-        print(sum(sum(population)))
+        for i in population:
+            print(i, type(i))
 
         for gen in range(num_gens):
             # evaluate
@@ -51,12 +49,12 @@ class GeneticAlgorithm:
 
             # cross
             # print("Mating parents")
-            offspring = [self.cross(ind1, ind2) if prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
+            offspring = [self.cross(ind1, ind2) if tools.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
 
             # mutate
             # print("Mutating children")
-            any(self.mutate(child) for child in offspring if prob() < self.MUT_PB)
+            mutants = [self.mutate(child) if tools.prob() < self.MUT_PB else child for child in offspring]
 
-            population[:] = offspring
+            population[:] = mutants
 
         return population

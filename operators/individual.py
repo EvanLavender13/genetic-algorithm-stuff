@@ -6,4 +6,4 @@ def binary_list(size):
 
 
 def integer_list(low, high, size):
-    return np.random.random_integers(low, high, size)
+    return list(np.random.random_integers(low, high, size))
