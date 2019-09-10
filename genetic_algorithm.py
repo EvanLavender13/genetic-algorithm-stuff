@@ -43,16 +43,10 @@ class GeneticAlgorithm:
             # print("Evaluating pop")
             fitness = map(self.evaluate, population)
 
-            # select
-            # print("Selecting parents")
+            # select, cross, mutate
+            # need to tighten this up; some looping seems unnecessary
             selected = self.select(zip(fitness, population))
-
-            # cross
-            # print("Mating parents")
             offspring = [self.cross(ind1, ind2) if tools.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
-
-            # mutate
-            # print("Mutating children")
             mutants = [self.mutate(child) if tools.prob() < self.MUT_PB else child for child in offspring]
 
             population[:] = mutants
