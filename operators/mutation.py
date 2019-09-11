@@ -1,10 +1,23 @@
+import random
+
 import numpy as np
 
 import tools
 
 
+# this one modifies the child in place, whereas the others don't
+# is one way preferable to the other?
+# hmmmmmmm..........
+def single_swap(child):
+    i, j = random.sample(range(len(child[1])), 2)
+
+    child[1][i], child[1][j] = child[1][j], child[1][i]
+
+    return child
+
+
 def uniform(child, prob, func, *args):
-    return [func(gene, *args) if tools.prob() < prob else gene for gene in child]
+    return 0, [func(gene, *args) if tools.prob() < prob else gene for gene in child[1]]
 
 
 def uniform_binary(child, prob):

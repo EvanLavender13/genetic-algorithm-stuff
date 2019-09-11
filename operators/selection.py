@@ -1,6 +1,6 @@
-from operator import itemgetter
-
 import numpy as np
+
+import tools
 
 
 def select_generator(pop, func, *args):
@@ -14,9 +14,9 @@ def select_generator(pop, func, *args):
 
 
 def roulette(population):
-    sorted_pop = sorted(population, key=itemgetter(0))
-    size = len(sorted_pop)
+    sorted_pop = tools.sort(population, reverse=True)
     total = sum(fit for fit, _ in sorted_pop)
     probs = [fit / total for fit, _ in sorted_pop]
+    size = len(sorted_pop)
 
     return select_generator(sorted_pop, lambda x, y: np.random.choice(x, p=y), size, probs)

@@ -24,31 +24,42 @@ class GeneticAlgorithm:
     @classmethod
     def run(cls, num_generations):
         algorithm = cls()
-        result = algorithm.execute(num_generations)
 
-        print("Final population ...")
-        for i in result:
-            print(i, type(i))
+        return algorithm.execute(num_generations)
 
     def execute(self, num_generations):
         # initialize
         print("Initializing pop ...")
-        population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
+        initial_population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
+
+        print(initial_population)
 
         # for i in population:
         #     print(i, type(i))
 
+        population = initial_population
+
+        metrics = {}
+
         for gen in range(num_generations):
             # evaluate
             # print("Evaluating pop")
-            fitness = map(self.evaluate, population)
+            evaluated_pop = list(zip(map(self.evaluate, population), population))
+
+            mean = tools.mean(evaluated_pop)
+            best = tools.best(evaluated_pop)
+
+            metrics[gen] = {
+                "mean": mean,
+                "best": best
+            }
 
             # select, cross, mutate
             # need to tighten this up; some looping seems unnecessary
-            selected = self.select(zip(fitness, population))
+            selected = self.select(evaluated_pop)
             offspring = [self.cross(ind1, ind2) if tools.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
             mutants = [self.mutate(child) if tools.prob() < self.MUT_PB else child for child in offspring]
 
             population[:] = mutants
 
-        return population
+        return population, metrics
