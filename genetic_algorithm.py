@@ -6,8 +6,14 @@ class GeneticAlgorithm:
     CX_PB = 1.0
     MUT_PB = 1.0
 
+    def init(self):
+        return
+
     def init_individual(self):
         raise NotImplementedError
+
+    def init_population(self):
+        return [self.init_individual() for _ in range(self.POPULATION_SIZE)]
 
     def evaluate(self, individual):
         raise NotImplementedError
@@ -29,8 +35,10 @@ class GeneticAlgorithm:
 
     def execute(self, num_generations):
         # initialize
+        self.init()
+
         print("Initializing pop ...")
-        population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
+        population = self.init_population()
 
         metrics = {}
 
@@ -51,8 +59,8 @@ class GeneticAlgorithm:
             # need to tighten this up; some looping seems unnecessary
             selected = self.select(evaluated_pop)
             offspring = [self.cross(ind1, ind2) if tools.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
-            mutants = [self.mutate(child) if tools.prob() < self.MUT_PB else child for child in offspring]
+            any(self.mutate(child) for child in offspring if tools.prob() < self.MUT_PB)
 
-            population[:] = mutants
+            population[:] = offspring
 
         return population, metrics

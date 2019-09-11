@@ -3,15 +3,38 @@ from operators import init_individual, selection, crossover, mutation
 
 
 class TravelingSalesman(GeneticAlgorithm):
-    POPULATION_SIZE = 10
-    CX_PB = 1.0
-    MUT_PB = 1.0
+    POPULATION_SIZE = 100
+    CX_PB = 0.15
+    MUT_PB = 0.05
+
+    def init(self):
+        # random adjacency matrix
+        self.adjacency_matrix = [
+            [0, 10, 20, 6, 12, 5, 32, 45, 17, 25],
+            [10, 0, 18, 19, 34, 22, 89, 23, 9, 11],
+            [20, 18, 0, 22, 9, 18, 7, 44, 10, 65],
+            [6, 19, 22, 0, 16, 23, 100, 17, 34, 29],
+            [12, 34, 9, 16, 0, 75, 8, 13, 24, 4],
+            [5, 22, 18, 23, 75, 0, 8, 18, 28, 38],
+            [32, 89, 7, 100, 8, 8, 0, 3, 9, 27],
+            [45, 23, 44, 17, 13, 18, 3, 0, 16, 64],
+            [17, 9, 10, 34, 24, 28, 9, 16, 0, 25],
+            [25, 11, 65, 29, 4, 38, 27, 64, 25, 0]
+        ]
+
+    def evaluate(self, individual):
+        route = individual
+        distance = 0
+
+        for x, y in zip(route[:-1], route[1:]):
+            distance += self.adjacency_matrix[x - 1][y - 1]
+
+        distance += self.adjacency_matrix[route[-1] - 1][route[0] - 1]
+
+        return distance
 
     def init_individual(self):
         return init_individual.integer_permutation(low=1, high=10)
-
-    def evaluate(self, individual):
-        return 1
 
     def select(self, population):
         return selection.roulette(population)

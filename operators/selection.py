@@ -13,6 +13,7 @@ def select_generator(pop, func, *args):
         yield pop[func(*args)][1], pop[func(*args)][1]
 
 
+# redo this
 def roulette(population):
     sorted_pop = tools.sort(population, reverse=True)
     total = sum(fit for fit, _ in sorted_pop)

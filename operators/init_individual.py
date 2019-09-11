@@ -6,8 +6,8 @@ def binary_list(size):
 
 
 def integer_list(size, low, high):
-    return 0, list(np.random.random_integers(low, high, size))
+    return list(np.random.random_integers(low, high, size))
 
 
 def integer_permutation(low, high):
-    return 0, list(np.random.permutation(range(low, high + 1)))
+    return list(np.random.permutation(range(low, high + 1)))

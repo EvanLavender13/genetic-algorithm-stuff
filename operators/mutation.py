@@ -5,24 +5,25 @@ import numpy as np
 import tools
 
 
-# this one modifies the child in place, whereas the others don't
-# is one way preferable to the other?
-# hmmmmmmm..........
 def single_swap(child):
-    i, j = random.sample(range(len(child[1])), 2)
+    size = len(child)
+    i, j = random.sample(range(size), 2)
 
-    child[1][i], child[1][j] = child[1][j], child[1][i]
-
-    return child
+    child[i], child[j] = child[j], child[i]
 
 
 def uniform(child, prob, func, *args):
-    return 0, [func(gene, *args) if tools.prob() < prob else gene for gene in child[1]]
+    size = len(child)
+
+    for index in range(size):
+        gene = child[index]
+
+        child[index] = func(gene, *args) if tools.prob() < prob else gene
 
 
 def uniform_binary(child, prob):
-    return uniform(child, prob, lambda x: 1 - x)
+    uniform(child, prob, lambda x: 1 - x)
 
 
 def uniform_integer(child, low, high, prob):
-    return uniform(child, prob, lambda _, x, y: np.random.random_integers(x, y), low, high)
+    uniform(child, prob, lambda _, x, y: np.random.random_integers(x, y), low, high)
