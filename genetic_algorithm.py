@@ -30,14 +30,7 @@ class GeneticAlgorithm:
     def execute(self, num_generations):
         # initialize
         print("Initializing pop ...")
-        initial_population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
-
-        print(initial_population)
-
-        # for i in population:
-        #     print(i, type(i))
-
-        population = initial_population
+        population = [self.init_individual() for _ in range(self.POPULATION_SIZE)]
 
         metrics = {}
 
