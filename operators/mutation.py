@@ -9,6 +9,10 @@ def single_swap(child):
     size = len(child)
     i, j = random.sample(range(size), 2)
 
+    _single_swap(child, i, j)
+
+
+def _single_swap(child, i, j):
     child[i], child[j] = child[j], child[i]
 
 
