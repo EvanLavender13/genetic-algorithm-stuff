@@ -6,7 +6,7 @@ import numpy as np
 def single_point(ind1, ind2):
     size = len(ind1)
 
-    _single_point(ind1, ind2, np.random.randint(1, size - 1))
+    return _single_point(ind1, ind2, np.random.randint(1, size - 1))
 
 
 def _single_point(ind1, ind2, point):
