@@ -4,8 +4,8 @@ from operators import init_individual, selection, crossover, mutation
 
 class TravelingSalesman(GeneticAlgorithm):
     POPULATION_SIZE = 100
-    CX_PB = 0.15
-    MUT_PB = 0.05
+    CX_PB = 0.25
+    MUT_PB = 0.10
 
     def init(self):
         # random adjacency matrix
@@ -70,7 +70,7 @@ class OneMax(GeneticAlgorithm):
 
 if __name__ == "__main__":
     # result, metrics = OneMax.run(num_generations=100)
-    result, metrics = TravelingSalesman.run(num_generations=2)
+    result, metrics = TravelingSalesman.run(num_generations=300)
 
     for key, value in metrics.items():
         print("gen %s mean = %s, best = %s" % (key, value["mean"], value["best"]))
