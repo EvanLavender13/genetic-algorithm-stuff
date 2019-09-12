@@ -56,7 +56,7 @@ class OneMax(GeneticAlgorithm):
         return init_individual.binary_list(size=self.IND_SIZE)
 
     def evaluate(self, individual):
-        return sum(individual[1])
+        return sum(individual)
 
     def select(self, population):
         return selection.roulette(population)
@@ -69,8 +69,8 @@ class OneMax(GeneticAlgorithm):
 
 
 if __name__ == "__main__":
-    # result, metrics = OneMax.run(num_generations=100)
-    result, metrics = TravelingSalesman.run(num_generations=300)
+    result, metrics = OneMax.run(num_generations=100)
+    # result, metrics = TravelingSalesman.run(num_generations=300)
 
     for key, value in metrics.items():
         print("gen %s mean = %s, best = %s" % (key, value["mean"], value["best"]))

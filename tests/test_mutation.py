@@ -18,6 +18,12 @@ class TestMutation(unittest.TestCase):
         mutation._single_swap(child, 4, 2)
         self.assertEqual(child, [1, 2, 5, 4, 3])
 
+    def test_uniform(self):
+        child = [0, 0, 0, 0, 0]
+
+        mutation._uniform(child, 1.0, lambda _: 1)
+        self.assertEqual(child, [1, 1, 1, 1, 1])
+
 
 if __name__ == '__main__':
     unittest.main()
