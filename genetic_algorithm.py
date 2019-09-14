@@ -9,6 +9,9 @@ class GeneticAlgorithm:
     def init(self):
         return
 
+    def exit(self, population):
+        return False
+
     def init_individual(self):
         raise NotImplementedError
 
@@ -55,9 +58,14 @@ class GeneticAlgorithm:
                 "best": best
             }
 
+            if self.exit(evaluated_pop):
+                print("Exit")
+                break
+
             # select, cross, mutate
             # need to tighten this up; some looping seems unnecessary
             selected = self.select(evaluated_pop)
+
             offspring = [self.cross(ind1, ind2) if tools.prob() < self.CX_PB else ind1 for ind1, ind2 in selected]
             any(self.mutate(child) for child in offspring if tools.prob() < self.MUT_PB)
 
